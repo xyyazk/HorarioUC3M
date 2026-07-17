@@ -176,3 +176,10 @@ td{
     margin-bottom:20px;
     color:#30d158;
 }
+
+#imagenFinal{
+    display:block;
+    width:330px;
+    margin:30px auto 0 auto;
+    border-radius:20px;
+}
