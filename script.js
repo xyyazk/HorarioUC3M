@@ -156,6 +156,21 @@ function mostrarHorario(){
     const dia = parseInt(partes[2]);
     const mes = parseInt(partes[1]);
 
+    const mensaje = document.getElementById("mensaje");
+
+if(mes > 12 || (mes === 12 && dia >= 11)){
+
+    mensaje.textContent = "🎉 Se acabó yeiiiiii";
+
+    document.getElementById("tabla").style.display = "none";
+
+    return;
+
+}
+
+mensaje.textContent = "";
+document.getElementById("tabla").style.display = "table";
+
     const tabla = calendario(dia,mes);
 
     for(let fila=0;fila<3;fila++){

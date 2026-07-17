@@ -168,3 +168,11 @@ td{
     }
 
 }
+
+#mensaje{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:20px;
+    color:#30d158;
+}
