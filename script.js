@@ -24,17 +24,22 @@ function contiene(lista,dia,mes){
     return lista.some(fecha => fecha[0]===dia && fecha[1]===mes);
 }
 
-function perteneceSemana(lista, dia, mes){
+function perteneceSemana(lista, dia, mes, esMiercoles = false){
 
     const año = 2026;
-
     const fechaSeleccionada = new Date(año, mes - 1, dia);
 
     for(const fecha of lista){
 
-        const inicio = new Date(año, fecha[1] - 1, fecha[0]);
-        const fin = new Date(inicio);
+        let inicio = new Date(año, fecha[1] - 1, fecha[0]);
 
+        // Si la fecha de referencia es un miércoles,
+        // retrocedemos al lunes de esa misma semana.
+        if(esMiercoles){
+            inicio.setDate(inicio.getDate() - 2);
+        }
+
+        const fin = new Date(inicio);
         fin.setDate(inicio.getDate() + 6);
 
         if(fechaSeleccionada >= inicio && fechaSeleccionada <= fin){
@@ -44,7 +49,6 @@ function perteneceSemana(lista, dia, mes){
     }
 
     return false;
-
 }
 
 function calendario(dia, mes){
@@ -53,7 +57,7 @@ function calendario(dia, mes){
     let second = [...secondOriginal];
     let third = [...thirdOriginal];
 
-    if(perteneceSemana(list_int_mon, dia, mes)){
+    if(perteneceSemana(list_int_mon, dia, mes, false)){
 
         third[0] = "Intro";
 
@@ -74,7 +78,7 @@ function calendario(dia, mes){
 
     }
 
-    else if(perteneceSemana(list_int_wed, dia, mes)){
+    else if(perteneceSemana(list_int_wed, dia, mes, true)){
 
         third[2] = "Intro";
 
