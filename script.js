@@ -148,7 +148,8 @@ function mostrarHorario(){
 
 }
 
-document.getElementById("boton").addEventListener("click",mostrarHorario);
+
+document.getElementById("fecha").addEventListener("change", mostrarHorario);
 
 document.getElementById("hoy").addEventListener("click",()=>{
 

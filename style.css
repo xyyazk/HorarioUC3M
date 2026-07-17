@@ -42,8 +42,11 @@ input[type="date"]{
 
 .botones{
     display:flex;
-    gap:10px;
     margin-bottom:25px;
+}
+
+#hoy{
+    width:100%;
 }
 
 button{
