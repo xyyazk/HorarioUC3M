@@ -32,11 +32,11 @@ function calendario(dia,mes){
 
     let second = ["Prog","Calc","Prog","Calc"];
 
-    let third = ["Intro","Visu","Intro","Visu"];
+    let third = ["","Visu","","Visu"];
 
-    if(!contiene(list_int_mon,dia,mes)){
+    if(contiene(list_int_mon,dia,mes)){
 
-        third[0] = "";
+        third[0] = "Intro";
 
         if(contiene(list_no_alg_prog,dia,mes)){
 
@@ -55,9 +55,9 @@ function calendario(dia,mes){
 
     }
 
-    else if(!contiene(list_int_wed,dia,mes)){
+    else if(contiene(list_int_wed,dia,mes)){
 
-        third[2] = "";
+        third[2] = "Intro";
 
         if(contiene(list_no_alg_prog,dia,mes)){
 
