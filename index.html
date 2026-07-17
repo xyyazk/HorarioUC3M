@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Horario UC3M</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>📚 Horario UC3M</h1>
+
+    <div class="entrada">
+
+        <label>Día</label>
+        <input type="number" id="dia" min="1" max="31">
+
+    </div>
+
+    <div class="entrada">
+
+        <label>Mes</label>
+        <input type="number" id="mes" min="1" max="12">
+
+    </div>
+
+    <button id="boton">
+        Ver horario
+    </button>
+
+    <table id="tabla">
+
+        <tr id="dias">
+            <th>L</th>
+            <th>M</th>
+            <th>X</th>
+            <th>J</th>
+        </tr>
+
+        <tr id="fila1">
+            <td>Alg</td>
+            <td>Comp</td>
+            <td>Alg</td>
+            <td>Comp</td>
+        </tr>
+
+        <tr id="fila2">
+            <td>Prog</td>
+            <td>Calc</td>
+            <td>Prog</td>
+            <td>Calc</td>
+        </tr>
+
+        <tr id="fila3">
+            <td>Intro</td>
+            <td>Visu</td>
+            <td>Intro</td>
+            <td>Visu</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
