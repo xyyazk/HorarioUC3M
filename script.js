@@ -3,51 +3,76 @@ const secondOriginal = ["Prog", "Calc", "Prog", "Calc"];
 const thirdOriginal = ["", "Visu", "", "Visu"];
 
 const list_int_mon = [
-    [1,9],[8,9],[15,9],[22,9],[29,9],[6,10],[13,10],[20,10],[27,10],[3,11],[10,11],[17,11],[24,11],[1,12],[15,12]
+    [7,9],[21,9],[5,10],[19,10],[16,11],[30,11]
 ];
 
 const list_int_wed = [
-    [3,9],[10,9],[17,9],[24,9],[1,10],[8,10],[15,10],[22,10],[29,10],[5,11],[12,11],[19,11],[26,11],[3,12],[17,12]
+    [16,9],[30,9],[14,10],[28,10],[11,11],[25,11],[9,12]
 ];
 
 const list_no_alg_prog = [
-    [20,11],[15,12]
+    [5,10],[6,10],[7,10],[8,10],[9,10],[11,10],[12,10],[13,10],[14,10],[15,10],[16,10],[17,10],[18,10],
+    [27,10],[28,10],[29,10],[30,10],[31,10],[1,11],[2,11],[3,11],[4,11],[5,11],[6,11],[7,11],[8,11],
+    [1,12],[2,12],[3,12],[4,12],[5,12],[6,12],[7,12],[8,12],[9,12],[10,12]
 ];
 
 const list_tues = [
-    [2,9],[9,9],[16,9],[23,9],[30,9],[7,10],[14,10],[21,10],[28,10],[4,11],[11,11],[18,11],[25,11],[2,12],[16,12]
+    [2,12],[3,12],[4,12],[5,12],[6,12],[7,12],[8,12],[9,12],[10,12]
 ];
 
 function contiene(lista,dia,mes){
     return lista.some(fecha => fecha[0]===dia && fecha[1]===mes);
 }
 
-function calendario(dia,mes){
+function calendario(dia, mes) {
 
     let first = [...firstOriginal];
     let second = [...secondOriginal];
     let third = [...thirdOriginal];
 
-    if(contiene(list_int_mon,dia,mes)){
+    if (contiene(list_int_mon, dia, mes)) {
+
         third[0] = "Intro";
+
+        if (contiene(list_no_alg_prog, dia, mes)) {
+
+            first[0] = "";
+            second[0] = "";
+
+            if (contiene(list_tues, dia, mes)) {
+
+                first[1] = "";
+                second[1] = "";
+                third[1] = "";
+
+            }
+
+        }
+
     }
 
-    else if(contiene(list_int_wed,dia,mes)){
+    else if (contiene(list_int_wed, dia, mes)) {
+
         third[2] = "Intro";
+
+        if (contiene(list_no_alg_prog, dia, mes)) {
+
+            first[0] = "";
+            second[0] = "";
+
+            if (contiene(list_tues, dia, mes)) {
+
+                first[1] = "";
+                second[1] = "";
+                third[1] = "";
+
+            }
+
+        }
+
     }
 
-    if(contiene(list_no_alg_prog,dia,mes)){
-        first[2] = "";
-        second[2] = "";
-    }
-
-    if(contiene(list_tues,dia,mes)){
-        first[1] = "";
-        second[1] = "";
-        third[1] = "";
-    }
-
-    return [first,second,third];
+    return [first, second, third];
 
 }
 
