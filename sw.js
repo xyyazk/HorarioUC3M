@@ -1,4 +1,4 @@
-const CACHE = "horario-v1";
+const CACHE = "horario-v2";
 
 const archivos = [
     "./",
