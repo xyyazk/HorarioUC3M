@@ -24,22 +24,45 @@ function contiene(lista,dia,mes){
     return lista.some(fecha => fecha[0]===dia && fecha[1]===mes);
 }
 
-function calendario(dia, mes) {
+function perteneceSemana(lista, dia, mes){
+
+    const año = 2026;
+
+    const fechaSeleccionada = new Date(año, mes - 1, dia);
+
+    for(const fecha of lista){
+
+        const inicio = new Date(año, fecha[1] - 1, fecha[0]);
+        const fin = new Date(inicio);
+
+        fin.setDate(inicio.getDate() + 6);
+
+        if(fechaSeleccionada >= inicio && fechaSeleccionada <= fin){
+            return true;
+        }
+
+    }
+
+    return false;
+
+}
+
+function calendario(dia, mes){
 
     let first = [...firstOriginal];
     let second = [...secondOriginal];
     let third = [...thirdOriginal];
 
-    if (contiene(list_int_mon, dia, mes)) {
+    if(perteneceSemana(list_int_mon, dia, mes)){
 
         third[0] = "Intro";
 
-        if (contiene(list_no_alg_prog, dia, mes)) {
+        if(contiene(list_no_alg_prog, dia, mes)){
 
             first[0] = "";
             second[0] = "";
 
-            if (contiene(list_tues, dia, mes)) {
+            if(contiene(list_tues, dia, mes)){
 
                 first[1] = "";
                 second[1] = "";
@@ -51,16 +74,16 @@ function calendario(dia, mes) {
 
     }
 
-    else if (contiene(list_int_wed, dia, mes)) {
+    else if(perteneceSemana(list_int_wed, dia, mes)){
 
         third[2] = "Intro";
 
-        if (contiene(list_no_alg_prog, dia, mes)) {
+        if(contiene(list_no_alg_prog, dia, mes)){
 
             first[0] = "";
             second[0] = "";
 
-            if (contiene(list_tues, dia, mes)) {
+            if(contiene(list_tues, dia, mes)){
 
                 first[1] = "";
                 second[1] = "";
@@ -123,7 +146,6 @@ function mostrarHorario(){
         return;
     }
 
-    localStorage.setItem("ultimaFecha",fecha);
 
     const partes = fecha.split("-");
 
@@ -167,15 +189,18 @@ document.getElementById("hoy").addEventListener("click",()=>{
 
 });
 
-window.onload = ()=>{
+window.onload = () => {
 
-    const ultimaFecha = localStorage.getItem("ultimaFecha");
+    const hoy = new Date();
 
-    if(ultimaFecha){
+    const año = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoy.getDate()).padStart(2, "0");
 
-        document.getElementById("fecha").value = ultimaFecha;
-        mostrarHorario();
+    const fecha = `${año}-${mes}-${dia}`;
 
-    }
+    document.getElementById("fecha").value = fecha;
+
+    mostrarHorario();
 
 };
