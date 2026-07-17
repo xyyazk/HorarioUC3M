@@ -9,7 +9,6 @@
     <title>Horario UC3M</title>
 
     <link rel="stylesheet" href="style.css">
-
     <link rel="manifest" href="manifest.json">
 
 </head>
@@ -20,53 +19,71 @@
 
     <h1>📚 Horario UC3M</h1>
 
-    <div class="entrada">
+    <div class="fecha">
 
-        <label>Día</label>
-        <input type="number" id="dia" min="1" max="31">
+        <label for="fecha">Fecha</label>
 
-    </div>
-
-    <div class="entrada">
-
-        <label>Mes</label>
-        <input type="number" id="mes" min="1" max="12">
+        <input type="date" id="fecha">
 
     </div>
 
-    <button id="boton">
-        Ver horario
-    </button>
+    <div class="botones">
+
+        <button id="hoy">
+            Hoy
+        </button>
+
+        <button id="boton">
+            Ver horario
+        </button>
+
+    </div>
 
     <table id="tabla">
 
-        <tr id="dias">
-            <th>L</th>
-            <th>M</th>
-            <th>X</th>
-            <th>J</th>
-        </tr>
+        <thead>
 
-        <tr id="fila1">
-            <td>Alg</td>
-            <td>Comp</td>
-            <td>Alg</td>
-            <td>Comp</td>
-        </tr>
+            <tr>
 
-        <tr id="fila2">
-            <td>Prog</td>
-            <td>Calc</td>
-            <td>Prog</td>
-            <td>Calc</td>
-        </tr>
+                <th>L</th>
+                <th>M</th>
+                <th>X</th>
+                <th>J</th>
 
-        <tr id="fila3">
-            <td>Intro</td>
-            <td>Visu</td>
-            <td>Intro</td>
-            <td>Visu</td>
-        </tr>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr id="fila1">
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr id="fila2">
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr id="fila3">
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+        </tbody>
 
     </table>
 

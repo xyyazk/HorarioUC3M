@@ -1,161 +1,167 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-}
-
 body{
-
+    margin:0;
+    padding:30px 15px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     background:#f2f2f7;
-
-    display:flex;
-
-    justify-content:center;
-
-    padding:40px 20px;
-
+    color:#1c1c1e;
 }
 
 .contenedor{
-
-    width:100%;
     max-width:420px;
-
+    margin:auto;
     background:white;
-
-    border-radius:20px;
-
+    border-radius:22px;
     padding:25px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 h1{
-
     text-align:center;
-
-    margin-bottom:30px;
-
+    margin-top:0;
+    margin-bottom:25px;
 }
 
-.entrada{
-
+.fecha{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
     margin-bottom:20px;
-
 }
 
 label{
-
-    display:block;
-
     font-weight:600;
-
-    margin-bottom:8px;
-
 }
 
-input{
-
-    width:100%;
-
+input[type="date"]{
     padding:12px;
-
     border-radius:12px;
+    border:1px solid #d1d1d6;
+    font-size:16px;
+    background:white;
+}
 
-    border:1px solid #ccc;
-
-    font-size:18px;
-
+.botones{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
 }
 
 button{
-
-    width:100%;
-
-    padding:14px;
-
+    flex:1;
     border:none;
-
-    border-radius:14px;
-
-    background:#007AFF;
-
-    color:white;
-
-    font-size:18px;
-
+    border-radius:12px;
+    padding:13px;
+    font-size:16px;
+    font-weight:600;
     cursor:pointer;
+    transition:.2s;
+}
 
-    margin-bottom:30px;
+#hoy{
+    background:#e5e5ea;
+    color:#000;
+}
 
+#boton{
+    background:#007aff;
+    color:white;
 }
 
 button:hover{
-
-    background:#0062cc;
-
+    transform:translateY(-2px);
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
-
+    text-align:center;
 }
 
 th{
-
-    background:#007AFF;
-
+    padding:12px;
+    background:#007aff;
     color:white;
+}
 
-    padding:10px;
+th:first-child{
+    border-radius:12px 0 0 0;
+}
 
+th:last-child{
+    border-radius:0 12px 0 0;
 }
 
 td{
-
-    text-align:center;
-
-    padding:12px;
-
-    border:1px solid #ddd;
-
+    padding:14px;
+    border-bottom:1px solid #ececec;
+    height:42px;
 }
+
+/* Etiquetas de asignaturas */
+
+.materia{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:14px;
+    color:white;
+}
+
+.alg{
+    background:#0a84ff;
+}
+
+.comp{
+    background:#30d158;
+}
+
+.prog{
+    background:#ffd60a;
+    color:black;
+}
+
+.calc{
+    background:#ff3b30;
+}
+
+.visu{
+    background:#bf5af2;
+}
+
+/* Celdas vacías */
+
+.vacio{
+    color:transparent;
+}
+
+/* Modo oscuro */
 
 @media (prefers-color-scheme: dark){
 
-body{
+    body{
+        background:#000;
+        color:white;
+    }
 
-    background:#111;
+    .contenedor{
+        background:#1c1c1e;
+        color:white;
+    }
 
-}
+    input[type="date"]{
+        background:#2c2c2e;
+        color:white;
+        border:1px solid #3a3a3c;
+    }
 
-.contenedor{
+    td{
+        border-bottom:1px solid #3a3a3c;
+    }
 
-    background:#1c1c1e;
-
-    color:white;
-
-}
-
-input{
-
-    background:#2c2c2e;
-
-    color:white;
-
-    border:1px solid #555;
-
-}
-
-td{
-
-    border:1px solid #444;
-
-}
+    #hoy{
+        background:#3a3a3c;
+        color:white;
+    }
 
 }
