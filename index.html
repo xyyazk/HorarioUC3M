@@ -19,9 +19,19 @@
 
     <h1>📚 Horario UC3M</h1>
 
+    <div class="navegacion">
+
+        <button id="anterior" class="flecha">◀</button>
+
+        <div id="textoSemana" class="semana"></div>
+
+        <button id="siguiente" class="flecha">▶</button>
+
+    </div>
+
     <div class="fecha">
 
-        <label for="fecha">Fecha</label>
+        <label for="fecha">Seleccionar otra fecha</label>
 
         <input type="date" id="fecha">
 
@@ -33,13 +43,9 @@
             Hoy
         </button>
 
-
-
     </div>
 
     <div id="mensaje"></div>
-
-    <div class="semana" id="textoSemana"></div>
 
     <table id="tabla">
 
@@ -59,49 +65,33 @@
         <tbody>
 
             <tr id="fila1">
-
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-
             </tr>
 
             <tr id="fila2">
-
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-
             </tr>
 
             <tr id="fila3">
-
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-
             </tr>
 
         </tbody>
 
     </table>
 
-    <img src="aulas.png" id="imagenFinal" alt="Imagen">
+    <img src="aulas.png" id="imagenFinal" alt="Horario oficial">
 
 </div>
-
-<div class="navegacion">
-    <button id="anterior" class="flecha">◀</button>
-
-    <input type="date" id="fecha">
-
-    <button id="siguiente" class="flecha">▶</button>
-</div>
-
-<button id="hoy">Hoy</button>
 
 <script src="script.js"></script>
 

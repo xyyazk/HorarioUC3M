@@ -1,99 +1,103 @@
+// ===========================
+// DATOS DEL HORARIO
+// ===========================
+
 const firstOriginal = ["Alg", "Comp", "Alg", "Comp"];
 const secondOriginal = ["Prog", "Calc", "Prog", "Calc"];
 const thirdOriginal = ["", "Visu", "", "Visu"];
 
-const list_int_mon = [
-    [7,9],[21,9],[5,10],[19,10],[16,11],[30,11]
+// Semanas con Introducción el lunes
+const listIntroMonday = [
+    [7,9],
+    [21,9],
+    [5,10],
+    [19,10],
+    [16,11],
+    [30,11]
 ];
 
-const list_int_wed = [
-    [16,9],[30,9],[14,10],[28,10],[11,11],[25,11],[9,12]
+// Semanas con Introducción el miércoles
+const listIntroWednesday = [
+    [16,9],
+    [30,9],
+    [14,10],
+    [28,10],
+    [11,11],
+    [25,11],
+    [9,12]
 ];
 
-const list_no_alg_prog = [
+// Semanas donde desaparecen Alg y Prog del lunes
+const listNoAlgProg = [
     [12,10],
     [26,10],
     [30,11]
 ];
 
-const list_tues = [
-    [2,12],[3,12],[4,12],[5,12],[6,12],[7,12],[8,12],[9,12],[10,12]
+// Semanas donde el martes no hay clase
+const listNoTuesday = [
+    [30,11]
 ];
 
-function contiene(lista,dia,mes){
-    return lista.some(fecha => fecha[0]===dia && fecha[1]===mes);
-}
+// ===========================
+// FUNCIONES AUXILIARES
+// ===========================
 
-function perteneceSemana(lista, dia, mes, esMiercoles = false){
+// Devuelve true si la fecha pertenece a la semana que empieza
+// en cualquiera de las fechas de la lista.
+function perteneceSemana(lista, dia, mes, desplazamiento = 0){
 
-    const año = 2026;
-    const fechaSeleccionada = new Date(año, mes - 1, dia);
+    const fecha = new Date(2026, mes - 1, dia);
 
-    for(const fecha of lista){
+    for(const [d, m] of lista){
 
-        let inicio = new Date(año, fecha[1] - 1, fecha[0]);
-
-        // Si la fecha de referencia es un miércoles,
-        // retrocedemos al lunes de esa misma semana.
-        if(esMiercoles){
-            inicio.setDate(inicio.getDate() - 2);
-        }
+        const inicio = new Date(2026, m - 1, d);
+        inicio.setDate(inicio.getDate() + desplazamiento);
 
         const fin = new Date(inicio);
-        fin.setDate(inicio.getDate() + 6);
+        fin.setDate(fin.getDate() + 6);
 
-        if(fechaSeleccionada >= inicio && fechaSeleccionada <= fin){
+        if(fecha >= inicio && fecha <= fin){
             return true;
         }
 
     }
 
     return false;
+
 }
 
-function calendario(dia, mes){
+// Devuelve las tres filas del horario correspondientes
+// a la semana seleccionada.
+function obtenerHorario(dia, mes){
 
-    let first = [...firstOriginal];
-    let second = [...secondOriginal];
-    let third = [...thirdOriginal];
+    const first = [...firstOriginal];
+    const second = [...secondOriginal];
+    const third = [...thirdOriginal];
 
-    if(perteneceSemana(list_int_mon, dia, mes, false)){
-
+    // Introducción el lunes
+    if(perteneceSemana(listIntroMonday, dia, mes)){
         third[0] = "Intro";
-
-        if(perteneceSemana(list_no_alg_prog, dia, mes)){
-
-            first[0] = "";
-            second[0] = "";
-
-            if(perteneceSemana(list_tues, dia, mes)){
-
-                first[1] = "";
-                second[1] = "";
-                third[1] = "";
-
-            }
-
-        }
-
     }
 
-    else if(perteneceSemana(list_int_wed, dia, mes, true)){
-
+    // Introducción el miércoles
+    // La lista guarda los miércoles, así que retrocedemos dos días
+    if(perteneceSemana(listIntroWednesday, dia, mes, -2)){
         third[2] = "Intro";
+    }
 
-        if(perteneceSemana(list_no_alg_prog, dia, mes)){
+    // Semanas sin Alg ni Prog
+    if(perteneceSemana(listNoAlgProg, dia, mes)){
 
-            first[0] = "";
-            second[0] = "";
+        first[0] = "";
+        second[0] = "";
 
-            if(perteneceSemana(list_tues, dia, mes)){
+        // Semanas sin martes
+        if(perteneceSemana(listNoTuesday, dia, mes)){
 
-                first[1] = "";
-                second[1] = "";
-                third[1] = "";
-
-            }
+            first[1] = "";
+            second[1] = "";
+            third[1] = "";
 
         }
 
@@ -103,87 +107,129 @@ function calendario(dia, mes){
 
 }
 
+// ===========================
+// INTERFAZ
+// ===========================
+
+// Crea la etiqueta de color de cada asignatura
 function crearEtiqueta(nombre){
 
-    if(nombre==="") return "";
-
-    let clase = "";
-
-    switch(nombre){
-
-        case "Alg":
-            clase="alg";
-            break;
-
-        case "Comp":
-            clase="comp";
-            break;
-
-        case "Prog":
-            clase="prog";
-            break;
-
-        case "Calc":
-            clase="calc";
-            break;
-
-        case "Visu":
-            clase="visu";
-            break;
-
-        case "Intro":
-            clase="comp";
-            break;
-
+    if(nombre === ""){
+        return "";
     }
 
-    return `<span class="materia ${clase}">${nombre}</span>`;
+    const clases = {
+        Alg: "alg",
+        Comp: "comp",
+        Prog: "prog",
+        Calc: "calc",
+        Visu: "visu",
+        Intro: "comp"
+    };
+
+    return `<span class="materia ${clases[nombre]}">${nombre}</span>`;
 
 }
 
+
+// Actualiza el texto "Semana del..."
+function actualizarTextoSemana(fecha){
+
+    const lunes = new Date(fecha);
+
+    const diaSemana = lunes.getDay();
+
+    // Si es domingo (0), retrocede 6 días.
+    // Si no, vuelve al lunes de esa semana.
+    lunes.setDate(
+        lunes.getDate() + (diaSemana === 0 ? -6 : 1 - diaSemana)
+    );
+
+    const domingo = new Date(lunes);
+    domingo.setDate(domingo.getDate() + 6);
+
+    const meses = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre"
+    ];
+
+    let texto;
+
+    if(lunes.getMonth() === domingo.getMonth()){
+
+        texto =
+            `Semana del ${lunes.getDate()} al ${domingo.getDate()} de ${meses[lunes.getMonth()]}`;
+
+    }else{
+
+        texto =
+            `Semana del ${lunes.getDate()} de ${meses[lunes.getMonth()]} al ${domingo.getDate()} de ${meses[domingo.getMonth()]}`;
+
+    }
+
+    document.getElementById("textoSemana").textContent = texto;
+
+}
+
+// Muestra el horario correspondiente a la fecha seleccionada
 function mostrarHorario(){
 
-    const fecha = document.getElementById("fecha").value;
+    const input = document.getElementById("fecha");
 
-    if(fecha===""){
-        alert("Selecciona una fecha.");
+    if(input.value === ""){
         return;
     }
 
+    // Guardar la última fecha
+    localStorage.setItem("ultimaFecha", input.value);
 
-    const partes = fecha.split("-");
+    const fecha = new Date(input.value);
 
-    const dia = parseInt(partes[2]);
-    const mes = parseInt(partes[1]);
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
 
-    actualizarTextoSemana(dia, mes);
+    actualizarTextoSemana(fecha);
 
     const mensaje = document.getElementById("mensaje");
+    const tabla = document.getElementById("tabla");
+    const imagen = document.getElementById("imagenFinal");
 
-if(mes > 12 || (mes === 12 && dia >= 11)){
+    // Fin de las clases
+    if(fecha >= new Date(2026, 11, 11)){
 
-    mensaje.textContent = "🎉 Se acabó yeiiiiii";
+        mensaje.textContent = "🎉 Se acabó yeiiiiii";
 
-    document.getElementById("tabla").style.display = "none";
+        tabla.style.display = "none";
+        imagen.style.display = "none";
 
-    return;
+        return;
 
-}
+    }
 
-mensaje.textContent = "";
-document.getElementById("tabla").style.display = "table";
+    mensaje.textContent = "";
 
-    const tabla = calendario(dia,mes);
+    tabla.style.display = "table";
+    imagen.style.display = "block";
 
-    for(let fila=0;fila<3;fila++){
+    const horario = obtenerHorario(dia, mes);
 
-        const tr = document.getElementById("fila"+(fila+1));
+    for(let fila = 0; fila < 3; fila++){
 
-        for(let col=0;col<4;col++){
+        const tr = document.getElementById(`fila${fila + 1}`);
 
-            const td = tr.children[col];
+        for(let col = 0; col < 4; col++){
 
-            td.innerHTML = crearEtiqueta(tabla[fila][col]);
+            tr.children[col].innerHTML = crearEtiqueta(horario[fila][col]);
 
         }
 
@@ -191,106 +237,80 @@ document.getElementById("tabla").style.display = "table";
 
 }
 
+// ===========================
+// CONTROL DE FECHAS
+// ===========================
 
-document.getElementById("fecha").addEventListener("change", mostrarHorario);
-
-document.getElementById("hoy").addEventListener("click",()=>{
-
-    const hoy = new Date();
-
-    const año = hoy.getFullYear();
-    const mes = String(hoy.getMonth()+1).padStart(2,"0");
-    const dia = String(hoy.getDate()).padStart(2,"0");
-
-    const fecha = `${año}-${mes}-${dia}`;
-
-    document.getElementById("fecha").value = fecha;
-
-    mostrarHorario();
-
-});
-
-window.onload = () => {
-
-    const hoy = new Date();
-
-    const año = hoy.getFullYear();
-    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
-    const dia = String(hoy.getDate()).padStart(2, "0");
-
-    const fecha = `${año}-${mes}-${dia}`;
-
-    document.getElementById("fecha").value = fecha;
-
-    mostrarHorario();
-
-};
-
+// Avanza o retrocede una semana
 function cambiarSemana(dias){
 
     const input = document.getElementById("fecha");
 
-    if(input.value==="") return;
+    if(input.value === ""){
+        return;
+    }
 
     const fecha = new Date(input.value);
 
     fecha.setDate(fecha.getDate() + dias);
 
-    const año = fecha.getFullYear();
-    const mes = String(fecha.getMonth()+1).padStart(2,"0");
-    const dia = String(fecha.getDate()).padStart(2,"0");
-
-    input.value = `${año}-${mes}-${dia}`;
+    input.value = fecha.toISOString().split("T")[0];
 
     mostrarHorario();
 
 }
 
-document.getElementById("anterior").addEventListener("click",()=>{
 
+// Ir a hoy
+function irAHoy(){
+
+    const hoy = new Date();
+
+    document.getElementById("fecha").value =
+        hoy.toISOString().split("T")[0];
+
+    mostrarHorario();
+
+}
+
+
+// ===========================
+// EVENTOS
+// ===========================
+
+document.getElementById("fecha").addEventListener("change", mostrarHorario);
+
+document.getElementById("hoy").addEventListener("click", irAHoy);
+
+document.getElementById("anterior").addEventListener("click", () => {
     cambiarSemana(-7);
-
 });
 
-document.getElementById("siguiente").addEventListener("click",()=>{
-
+document.getElementById("siguiente").addEventListener("click", () => {
     cambiarSemana(7);
-
 });
 
-function actualizarTextoSemana(dia, mes){
 
-    const año = 2026;
+// ===========================
+// INICIO
+// ===========================
 
-    const fecha = new Date(año, mes - 1, dia);
+window.onload = () => {
 
-    // Obtener el lunes de esa semana
-    const diaSemana = fecha.getDay(); // Domingo=0, Lunes=1...
-    const diferencia = diaSemana === 0 ? -6 : 1 - diaSemana;
+    const input = document.getElementById("fecha");
 
-    fecha.setDate(fecha.getDate() + diferencia);
+    const ultimaFecha = localStorage.getItem("ultimaFecha");
 
-    const lunes = new Date(fecha);
-    const domingo = new Date(fecha);
-    domingo.setDate(lunes.getDate() + 6);
+    if(ultimaFecha){
 
-    const meses = [
-        "enero","febrero","marzo","abril","mayo","junio",
-        "julio","agosto","septiembre","octubre","noviembre","diciembre"
-    ];
-
-    let texto;
-
-    if(lunes.getMonth() === domingo.getMonth()){
-
-        texto = `Semana del ${lunes.getDate()} al ${domingo.getDate()} de ${meses[lunes.getMonth()]}`;
+        input.value = ultimaFecha;
 
     }else{
 
-        texto = `Semana del ${lunes.getDate()} de ${meses[lunes.getMonth()]} al ${domingo.getDate()} de ${meses[domingo.getMonth()]}`;
+        input.value = new Date().toISOString().split("T")[0];
 
     }
 
-    document.getElementById("textoSemana").textContent = texto;
+    mostrarHorario();
 
-}
+};
