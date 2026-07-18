@@ -61,12 +61,12 @@ function calendario(dia, mes){
 
         third[0] = "Intro";
 
-        if(contiene(list_no_alg_prog, dia, mes)){
+        if(perteneceSemana(list_no_alg_prog, dia, mes)){
 
             first[0] = "";
             second[0] = "";
 
-            if(contiene(list_tues, dia, mes)){
+            if(perteneceSemana(list_tues, dia, mes)){
 
                 first[1] = "";
                 second[1] = "";
@@ -82,12 +82,12 @@ function calendario(dia, mes){
 
         third[2] = "Intro";
 
-        if(contiene(list_no_alg_prog, dia, mes)){
+        if(perteneceSemana(list_no_alg_prog, dia, mes)){
 
             first[0] = "";
             second[0] = "";
 
-            if(contiene(list_tues, dia, mes)){
+            if(perteneceSemana(list_tues, dia, mes)){
 
                 first[1] = "";
                 second[1] = "";
