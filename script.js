@@ -30,13 +30,13 @@ const listIntroWednesday = [
 // Semanas donde desaparecen Alg y Prog del lunes
 const listNoAlgProg = [
     [12,10],
-    [26,10],
-    [30,11]
+    [2,11],
+    [7,12]
 ];
 
 // Semanas donde el martes no hay clase
 const listNoTuesday = [
-    [30,11]
+    [7,12]
 ];
 
 // ===========================
