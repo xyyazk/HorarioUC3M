@@ -223,3 +223,35 @@ window.onload = () => {
     mostrarHorario();
 
 };
+
+function cambiarSemana(dias){
+
+    const input = document.getElementById("fecha");
+
+    if(input.value==="") return;
+
+    const fecha = new Date(input.value);
+
+    fecha.setDate(fecha.getDate() + dias);
+
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth()+1).padStart(2,"0");
+    const dia = String(fecha.getDate()).padStart(2,"0");
+
+    input.value = `${año}-${mes}-${dia}`;
+
+    mostrarHorario();
+
+}
+
+document.getElementById("anterior").addEventListener("click",()=>{
+
+    cambiarSemana(-7);
+
+});
+
+document.getElementById("siguiente").addEventListener("click",()=>{
+
+    cambiarSemana(7);
+
+});

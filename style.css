@@ -183,3 +183,31 @@ td{
     margin:30px auto 0 auto;
     border-radius:20px;
 }
+
+.navegacion{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.flecha{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#0a84ff;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.flecha:hover{
+    transform:scale(1.08);
+}
+
+.navegacion input{
+    flex:1;
+}
