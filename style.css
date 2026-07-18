@@ -211,3 +211,11 @@ td{
 .navegacion input{
     flex:1;
 }
+
+.semana{
+    text-align:center;
+    font-size:20px;
+    font-weight:600;
+    margin:15px 0;
+    color:white;
+}

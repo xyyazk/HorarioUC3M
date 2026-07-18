@@ -156,6 +156,8 @@ function mostrarHorario(){
     const dia = parseInt(partes[2]);
     const mes = parseInt(partes[1]);
 
+    actualizarTextoSemana(dia, mes);
+
     const mensaje = document.getElementById("mensaje");
 
 if(mes > 12 || (mes === 12 && dia >= 11)){
@@ -255,3 +257,40 @@ document.getElementById("siguiente").addEventListener("click",()=>{
     cambiarSemana(7);
 
 });
+
+function actualizarTextoSemana(dia, mes){
+
+    const año = 2026;
+
+    const fecha = new Date(año, mes - 1, dia);
+
+    // Obtener el lunes de esa semana
+    const diaSemana = fecha.getDay(); // Domingo=0, Lunes=1...
+    const diferencia = diaSemana === 0 ? -6 : 1 - diaSemana;
+
+    fecha.setDate(fecha.getDate() + diferencia);
+
+    const lunes = new Date(fecha);
+    const domingo = new Date(fecha);
+    domingo.setDate(lunes.getDate() + 6);
+
+    const meses = [
+        "enero","febrero","marzo","abril","mayo","junio",
+        "julio","agosto","septiembre","octubre","noviembre","diciembre"
+    ];
+
+    let texto;
+
+    if(lunes.getMonth() === domingo.getMonth()){
+
+        texto = `Semana del ${lunes.getDate()} al ${domingo.getDate()} de ${meses[lunes.getMonth()]}`;
+
+    }else{
+
+        texto = `Semana del ${lunes.getDate()} de ${meses[lunes.getMonth()]} al ${domingo.getDate()} de ${meses[domingo.getMonth()]}`;
+
+    }
+
+    document.getElementById("textoSemana").textContent = texto;
+
+}
